@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <React.Fragment>
       <Head>
-        <title>SuperFreshSorting</title>
+        <title>UltraFreshSorting</title>
       </Head>
       <SortViewer />
     </React.Fragment>

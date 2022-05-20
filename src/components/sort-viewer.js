@@ -1,8 +1,8 @@
 import * as React from 'react'
 import dynamic from 'next/dynamic'
 import { useUpdateEffect } from '../lib/hooks'
-import { sortNames, priorityList } from '../lib/sort-names'
 import { localDB } from '../lib/local-db'
+import { sort, priorityList } from '../core/sort'
 import { SorterSection } from './sorter-section'
 
 const HighlightWithinTextarea = dynamic(() =>
@@ -22,7 +22,7 @@ export function SortViewer() {
   const [text, setText] = React.useState('')
   const [lines, setLines] = React.useState([])
 
-  const sortedLines = sortNames(lines)
+  const sortedLines = sort(lines)
 
   useUpdateEffect(() => {
     localDB.save(text)
@@ -36,7 +36,7 @@ export function SortViewer() {
   return (
     <main className="p-6 flex flex-col md:max-w-6xl mx-auto font-mono md:border-l md:border-r border-gray-500">
       <header className="text-2xl mb-4">
-        <h1 className="italic">SuperFreshSorting</h1>
+        <h1 className="italic">UltraFreshSorting</h1>
       </header>
       <div className="flex flex-col md:flex-row">
         <SorterSection title="Input" subtitle="Press enter to separate names">

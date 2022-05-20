@@ -34,7 +34,7 @@ function compare(a, b) {
   return firstOneHasPriority ? -1 : 1
 }
 
-export function sortNames(names) {
+export function sort(names) {
   const indexes = new Map()
 
   return [...names]
