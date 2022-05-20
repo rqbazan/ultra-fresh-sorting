@@ -1,21 +1,21 @@
-export const priorityList = [
+export const defaultPriorityList = [
   new RegExp('frutas\\s+y\\s+verduras', 'i'),
   new RegExp('carnes|pescados|pollos', 'i'),
   new RegExp('lacteos|leches', 'i'),
   new RegExp('comidas\\s+(preparadas|listas)', 'i'),
 ]
 
-function getPriorityIndex(name) {
+function getPriorityIndex(name, priorityList) {
   return priorityList.findIndex((re) => re.test(name))
 }
 
-function getPriorityScore(name) {
-  return getPriorityIndex(name) + 1
+function getPriorityScore(name, priorityList) {
+  return getPriorityIndex(name, priorityList) + 1
 }
 
-function compare(a, b) {
-  const indexA = getPriorityIndex(a)
-  const indexB = getPriorityIndex(b)
+function compare(a, b, priorityList) {
+  const indexA = getPriorityIndex(a, priorityList)
+  const indexB = getPriorityIndex(b, priorityList)
 
   const firstOneHasPriority = indexA !== -1
   const secondOneHasPriority = indexB !== -1
@@ -34,17 +34,15 @@ function compare(a, b) {
   return firstOneHasPriority ? -1 : 1
 }
 
-export function sort(names) {
-  const indexes = new Map()
-
+export function sort(names, priorityList) {
   return [...names]
     .map((name) => name.trim())
     .filter(Boolean)
-    .sort((a, b) => compare(a, b, indexes))
+    .sort((a, b) => compare(a, b, priorityList))
     .map((name) => {
       return {
         name,
-        score: getPriorityScore(name),
+        score: getPriorityScore(name, priorityList),
       }
     })
 }

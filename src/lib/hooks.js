@@ -1,12 +1,17 @@
 import * as React from 'react'
+import { createLocalDB } from '../lib/local-db'
 
-export function useUpdateEffect(effect, deps) {
-  const mounted = React.useRef(false)
+export function usePersistenceState({ initialValue, ...dbOptions }) {
+  const [localDB] = React.useState(() => createLocalDB(dbOptions))
+  const [value, setValue] = React.useState(initialValue)
 
   React.useEffect(() => {
-    if (mounted.current) {
-      return effect()
-    }
-    mounted.current = true
-  }, deps)
+    setValue(localDB.get())
+  }, [localDB])
+
+  React.useEffect(() => {
+    localDB.save(value)
+  }, [localDB, value])
+
+  return [value, setValue]
 }
