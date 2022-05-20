@@ -34,11 +34,11 @@ export function SortViewer() {
   }, [])
 
   return (
-    <main className="py-6 flex flex-col container mx-auto font-mono">
+    <main className="p-6 flex flex-col md:max-w-6xl mx-auto font-mono md:border-l md:border-r border-gray-500">
       <header className="text-2xl mb-4">
-        <h1>SuperFreshSorting</h1>
+        <h1 className="italic">SuperFreshSorting</h1>
       </header>
-      <div className="flex">
+      <div className="flex flex-col md:flex-row">
         <SorterSection title="Input" subtitle="Press enter to separate names">
           <div className="flex flex-col">
             <div
@@ -64,7 +64,7 @@ export function SortViewer() {
             )}
           </div>
         </SorterSection>
-        <div className="w-[1px] bg-gray-400 mx-4" />
+        <div className="my-6 md:mx-6" />
         <SorterSection
           title="Output"
           subtitle="List of sorted names with priority values"
