@@ -43,7 +43,7 @@ export function SortViewer() {
   )
 
   return (
-    <main className="p-6 flex flex-col md:max-w-6xl mx-auto font-mono md:border-l md:border-r border-gray-500">
+    <main className="p-6 flex flex-col md:max-w-6xl mx-auto font-mono">
       <header className="text-2xl mb-4">
         <h1 className="italic">UltraFreshSorting</h1>
       </header>
