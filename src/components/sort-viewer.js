@@ -48,7 +48,7 @@ export function SortViewer() {
         <h1 className="italic">UltraFreshSorting</h1>
       </header>
       <div className="flex flex-col md:flex-row">
-        <SorterSection title="Input" subtitle="Drag and drop to order ">
+        <SorterSection title="Priority" subtitle="Drag and drop to order ">
           {priorityList?.length > 0 && (
             <div className="flex flex-col">
               <PriorityList
