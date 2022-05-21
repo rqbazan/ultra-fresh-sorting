@@ -1,11 +1,12 @@
 import * as React from 'react'
-import dynamic from 'next/dynamic'
 import HighlightWithinTextarea from 'react-highlight-within-textarea'
 import { usePersistenceState } from '../lib/hooks'
 import { sort, defaultPriorityList } from '../core/sort'
 import { regexListDeserialize, regexListSerialize } from '../utils/regex'
+import { defaultText } from '../utils/samples'
 import { SorterSection } from './sorter-section'
 import { PriorityList } from './priority-list'
+import { Button } from './button'
 
 const HIGHLIGHT_CLASS_NAME = 'bg-green-100'
 
@@ -47,7 +48,22 @@ export function SortViewer() {
       </header>
       <div className="flex flex-col md:flex-row">
         <SorterSection title="Input" subtitle="Drag and drop to order ">
-          <PriorityList dataSource={priorityList} onChange={setPriorityList} />
+          {priorityList?.length > 0 && (
+            <div className="flex flex-col">
+              <PriorityList
+                dataSource={priorityList}
+                onChange={setPriorityList}
+              />
+              <Button
+                className="mt-4 ml-auto"
+                onClick={() => {
+                  setPriorityList(defaultPriorityList)
+                }}
+              >
+                Reset
+              </Button>
+            </div>
+          )}
         </SorterSection>
         <div className="my-6 md:mx-6" />
         <SorterSection title="Input" subtitle="Press enter to separate names">
@@ -63,6 +79,14 @@ export function SortViewer() {
                 placeholder=""
               />
             </div>
+            <Button
+              className="mt-4 ml-auto"
+              onClick={() => {
+                setText(defaultText)
+              }}
+            >
+              Sample
+            </Button>
           </div>
         </SorterSection>
         <div className="my-6 md:mx-6" />
