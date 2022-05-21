@@ -10,8 +10,6 @@ const reorder = (list, startIndex, endIndex) => {
 }
 
 export function PriorityList({ dataSource, onChange }) {
-  function onInputChange(e) {}
-
   function onDragEnd(result) {
     if (!result.destination) {
       return
@@ -46,7 +44,7 @@ export function PriorityList({ dataSource, onChange }) {
                       <div className="bg-black text-white px-2 flex items-center">
                         {index + 1}
                       </div>
-                      <div className="w-full px-3 py-2 border border-dashed border-gray-500 text-xs focus:border-transparent bg-white" onChange={onInputChange}>
+                      <div className="w-full px-3 py-2 border border-dashed border-gray-500 text-xs focus:border-transparent bg-white">
                         {reAsStr}
                       </div>
                     </div>

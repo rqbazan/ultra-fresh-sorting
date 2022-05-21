@@ -46,7 +46,7 @@ export function SortViewer() {
         <h1 className="italic">UltraFreshSorting</h1>
       </header>
       <div className="flex flex-col md:flex-row">
-        <SorterSection title="Input" subtitle="Press enter to separate names">
+        <SorterSection title="Input" subtitle="Drag and drop to order ">
           <PriorityList dataSource={priorityList} onChange={setPriorityList} />
         </SorterSection>
         <div className="my-6 md:mx-6" />
@@ -66,10 +66,7 @@ export function SortViewer() {
           </div>
         </SorterSection>
         <div className="my-6 md:mx-6" />
-        <SorterSection
-          title="Output"
-          subtitle="List of sorted names with priority values"
-        >
+        <SorterSection title="Output" subtitle="Result with priority values">
           {sortedLines?.length > 0 ? (
             <ul className="flex flex-col gap-2">
               {sortedLines.map((line, index) => {
