@@ -1,4 +1,5 @@
 import * as React from 'react'
+import clsx from 'clsx'
 import HighlightWithinTextarea from 'react-highlight-within-textarea'
 import { usePersistenceState } from '../lib/hooks'
 import { sort, defaultPriorityList } from '../core/sort'
@@ -92,12 +93,18 @@ export function SortViewer() {
         <div className="my-6 md:mx-6" />
         <SorterSection title="Output" subtitle="Result with priority values">
           {sortedLines?.length > 0 ? (
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col space-y-1">
               {sortedLines.map((line, index) => {
                 const { name, score } = line
 
                 return (
-                  <li key={`${name}-${index}`}>
+                  <li
+                    key={`${name}-${index}`}
+                    className={clsx(
+                      score > 0 && HIGHLIGHT_CLASS_NAME,
+                      'inline-block w-fit'
+                    )}
+                  >
                     ({score}) {name}
                   </li>
                 )
