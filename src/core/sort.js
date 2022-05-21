@@ -1,10 +1,3 @@
-export const defaultPriorityList = [
-  new RegExp('frutas\\s+y\\s+verduras', 'i'),
-  new RegExp('carnes|pescados|pollos', 'i'),
-  new RegExp('lacteos|leches', 'i'),
-  new RegExp('comidas\\s+(preparadas|listas)', 'i'),
-]
-
 function getPriorityIndex(name, priorityList) {
   return priorityList.findIndex((re) => re.test(name))
 }
