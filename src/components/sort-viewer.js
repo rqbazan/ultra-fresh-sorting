@@ -1,17 +1,21 @@
 import * as React from 'react'
 import clsx from 'clsx'
 import HighlightWithinTextarea from 'react-highlight-within-textarea'
+import escapeStringRegexp from 'escape-string-regexp'
 import { usePersistenceState } from '../lib/hooks'
-import { sort } from '../core/sort'
-import { regexListDeserialize, regexListSerialize } from '../utils/regex'
-import { defaultText, defaultPriorityList } from '../utils/samples'
+import { ultraFreshSorting } from '../core/sort'
+import { defaultText, defaultPriorities } from '../utils/samples'
 import { SorterSection } from './sorter-section'
 import { PriorityList } from './priority-list'
 import { Button } from './button'
 
 const HIGHLIGHT_CLASS_NAME = 'bg-green-100'
 
-const toLines = (text) => text?.split('\n') ?? []
+const toLines = (text) =>
+  text
+    ?.split('\n')
+    .map((value) => value.trim())
+    .filter(Boolean) ?? []
 
 export function SortViewer() {
   const [text, setText] = usePersistenceState({
@@ -20,26 +24,29 @@ export function SortViewer() {
     defaultValue: '',
   })
 
-  const [priorityList, setPriorityList] = usePersistenceState({
-    key: 'priority-list',
+  const [priorities, setPriorities] = usePersistenceState({
+    key: 'priorities',
     initialValue: [],
-    defaultValue: defaultPriorityList,
-    serialize: regexListSerialize,
-    deserialize: regexListDeserialize,
+    defaultValue: defaultPriorities,
   })
 
+  const escapedPriorities = React.useMemo(
+    () => priorities.map((value) => escapeStringRegexp(value)),
+    [priorities]
+  )
+
   const sortedLines = React.useMemo(
-    () => sort(toLines(text), priorityList),
-    [text, priorityList]
+    () => ultraFreshSorting(toLines(text), escapedPriorities),
+    [text, escapedPriorities]
   )
 
   const highlight = React.useMemo(
     () =>
-      priorityList.map((re) => ({
-        highlight: new RegExp(re, 'gi'),
+      escapedPriorities.map((value) => ({
+        highlight: new RegExp(value, 'gi'),
         className: HIGHLIGHT_CLASS_NAME,
       })),
-    [priorityList]
+    [escapedPriorities]
   )
 
   return (
@@ -49,17 +56,12 @@ export function SortViewer() {
       </header>
       <div className="flex flex-col md:flex-row">
         <SorterSection title="Priority" subtitle="Drag and drop to order ">
-          {priorityList?.length > 0 && (
+          {priorities?.length > 0 && (
             <div className="flex flex-col">
-              <PriorityList
-                dataSource={priorityList}
-                onChange={setPriorityList}
-              />
+              <PriorityList dataSource={priorities} onChange={setPriorities} />
               <Button
                 className="mt-4 ml-auto"
-                onClick={() => {
-                  setPriorityList(defaultPriorityList)
-                }}
+                onClick={() => setPriorities(defaultPriorities)}
               >
                 Reset
               </Button>
@@ -95,17 +97,17 @@ export function SortViewer() {
           {sortedLines?.length > 0 ? (
             <ul className="flex flex-col space-y-1">
               {sortedLines.map((line, index) => {
-                const { name, score } = line
+                const { value, score } = line
 
                 return (
                   <li
-                    key={`${name}-${index}`}
+                    key={`${value}-${index}`}
                     className={clsx(
                       score > 0 && HIGHLIGHT_CLASS_NAME,
                       'inline-block w-fit'
                     )}
                   >
-                    ({score}) {name}
+                    ({score}) {value}
                   </li>
                 )
               })}

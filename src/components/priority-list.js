@@ -29,11 +29,9 @@ export function PriorityList({ dataSource, onChange }) {
       <Droppable droppableId="droppable">
         {(provided, snapshot) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
-            {dataSource.map((re, index) => {
-              const reAsStr = re.toString()
-
+            {dataSource.map((value, index) => {
               return (
-                <Draggable key={reAsStr} draggableId={reAsStr} index={index}>
+                <Draggable key={value} draggableId={value} index={index}>
                   {(provided, snapshot) => (
                     <div
                       ref={provided.innerRef}
@@ -45,7 +43,7 @@ export function PriorityList({ dataSource, onChange }) {
                         {index + 1}
                       </div>
                       <div className="w-full px-3 py-2 border border-dashed border-gray-500 text-xs focus:border-transparent bg-white">
-                        {reAsStr}
+                        {value}
                       </div>
                     </div>
                   )}

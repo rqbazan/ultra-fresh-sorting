@@ -14,9 +14,13 @@ Chocolates
 Comidas listas
 Leches`
 
-export const defaultPriorityList = [
-  new RegExp('frutas\\s+y\\s+verduras', 'i'),
-  new RegExp('carnes|pescados|pollos', 'i'),
-  new RegExp('lacteos|leches', 'i'),
-  new RegExp('comidas\\s+(preparadas|listas)', 'i'),
+export const defaultPriorities = [
+  'frutas y verduras',
+  'carnes',
+  'pescados',
+  'pollos',
+  'lacteos',
+  'leches',
+  'comidas preparadas',
+  'comidas listas',
 ]
