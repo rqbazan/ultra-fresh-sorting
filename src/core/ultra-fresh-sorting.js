@@ -21,8 +21,10 @@ function compare(itemA, itemB, priorities, visited) {
   const priorityIndexA = getPriorityIndex(valueA, priorities)
   const priorityIndexB = getPriorityIndex(valueB, priorities)
 
-  const checkIfHasPriority = (index, item) =>
-    index !== -1 && (!visited.has(index) || visited.get(index) === item)
+  const checkIfHasPriority = (priorityIndex, item) => {
+    const lookup = visited.get(priorityIndex)
+    return priorityIndex !== -1 && (!lookup || lookup === item)
+  }
 
   const firstOneHasPriority = checkIfHasPriority(priorityIndexA, itemA)
   const secondOneHasPriority = checkIfHasPriority(priorityIndexB, itemB)
