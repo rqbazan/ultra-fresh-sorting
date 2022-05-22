@@ -3,7 +3,8 @@ import clsx from 'clsx'
 import HighlightWithinTextarea from 'react-highlight-within-textarea'
 import escapeStringRegexp from 'escape-string-regexp'
 import { usePersistenceState } from '../lib/hooks'
-import { sort } from '../core/sort'
+import { sortV1 } from '../core/sort.v1'
+import { sortV2 } from '../core/sort.v2'
 import { defaultText, defaultPriorities } from '../utils/samples'
 import { SorterSection } from './sorter-section'
 import { PriorityList } from './priority-list'
@@ -35,9 +36,11 @@ export function SortViewer() {
     [priorities]
   )
 
+  const sort = sortV1
+
   const sortedLines = React.useMemo(
     () => sort(toLines(text), escapedPriorities),
-    [text, escapedPriorities]
+    [sort, text, escapedPriorities]
   )
 
   const highlight = React.useMemo(

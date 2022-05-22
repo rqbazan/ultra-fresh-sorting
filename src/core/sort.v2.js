@@ -1,18 +1,25 @@
-import { ultraFreshSorting } from './ultra-fresh-sorting'
-
-const reverseMap = (map) => new Map(Array.from(map, (x) => x.reverse()))
+import { prioritisedSortingBy } from './prioritised-sorting-by.v2'
 
 const toPriorityScore = (value) => value + 1
+
+const reverseMap = (map) => new Map(Array.from(map, (x) => x.reverse()))
 
 /**
  * @param {string[]} values
  * @param {string[]} priorities
  * @returns {{ value: string, score: number }[]}
  */
-export function sort(values, priorities) {
+export function sortV2(values, priorities) {
+  const items = values.map((value) => ({ value }))
+
   const visited = new Map()
 
-  const sortedItems = ultraFreshSorting(values, priorities, visited)
+  const sortedItems = prioritisedSortingBy(
+    items,
+    priorities,
+    (obj) => obj.value,
+    visited
+  )
 
   const reversed = reverseMap(visited)
 

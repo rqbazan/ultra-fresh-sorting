@@ -8,15 +8,16 @@ function getPriorityIndex(value, priorities) {
 }
 
 /**
- * @param {{ value: string }} itemA
- * @param {{ value: string }} itemB
+ * @param {unknown} itemA
+ * @param {unknown} itemB
  * @param {RegExp[]} priorities
- * @param {Map<number, { value: string }>} visited
+ * @param {Map<number, unknown>} visited
+ * @param {(obj: unknown) => string} selector
  * @returns {number}
  */
-function compare(itemA, itemB, priorities, visited) {
-  const { value: valueA } = itemA
-  const { value: valueB } = itemB
+function compare(itemA, itemB, priorities, visited, selector) {
+  const valueA = selector(itemA)
+  const valueB = selector(itemB)
 
   const priorityIndexA = getPriorityIndex(valueA, priorities)
   const priorityIndexB = getPriorityIndex(valueB, priorities)
@@ -54,15 +55,19 @@ function compare(itemA, itemB, priorities, visited) {
 }
 
 /**
- * @param {string[]} values
- * @param {string[]} _priorities
- * @param {Map<number, { value: string }>} [_visited]
- * @returns {{ value: string }[]}
+ * @param {unknown[]} values
+ * @param {string[]} priorities
+ * @param {(obj: unknown) => string} selector
+ * @param {Map<number, unknown>} [visited]
+ * @returns {unknown[]}
  */
-export function ultraFreshSorting(values, _priorities, visited = new Map()) {
-  const priorities = _priorities.map((x) => new RegExp(x, 'i'))
+export function prioritisedSortingBy(
+  values,
+  priorities,
+  selector,
+  visited = new Map()
+) {
+  const regexps = priorities.map((x) => new RegExp(x, 'i'))
 
-  return values
-    .map((value) => ({ value })) // make it unique by reference not by value
-    .sort((a, b) => compare(a, b, priorities, visited))
+  return [...values].sort((a, b) => compare(a, b, regexps, visited, selector))
 }
