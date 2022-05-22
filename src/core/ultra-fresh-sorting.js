@@ -37,12 +37,12 @@ function compare(itemA, itemB, priorities, visited) {
     visited.set(priorityIndexB, itemB)
   }
 
-  // None of them has priorities
+  // None of them have priorities
   if (!firstOneHasPriority && !secondOneHasPriority) {
     return valueA.localeCompare(valueB)
   }
 
-  // Both of them has priorities
+  // Both of them have priorities
   if (firstOneHasPriority && secondOneHasPriority) {
     return priorityIndexA === priorityIndexB
       ? valueA.localeCompare(valueB)
