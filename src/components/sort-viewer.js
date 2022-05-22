@@ -36,7 +36,7 @@ export function SortViewer() {
     [priorities]
   )
 
-  const sort = sortV1
+  const sort = sortV2
 
   const sortedLines = React.useMemo(
     () => sort(toLines(text), escapedPriorities),
