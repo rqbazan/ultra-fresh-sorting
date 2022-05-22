@@ -49,7 +49,7 @@ function compare(itemA, itemB, priorities, visited) {
       : priorityIndexA - priorityIndexB
   }
 
-  // Only one of them has a prority
+  // Only one of them has a priority
   return firstOneHasPriority ? -1 : 1
 }
 
