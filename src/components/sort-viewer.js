@@ -62,13 +62,26 @@ export function SortViewer() {
   )
 
   return (
-    <main className="p-6 flex flex-col md:max-w-6xl mx-auto font-mono">
-      <header className="text-2xl mb-4 flex items-center">
-        <h1 className="italic mr-2">UltraFreshSorting</h1>
-        <select value={version} onChange={(e) => setVersion(e.target.value)}>
-          <option value="v1">V1</option>
-          <option value="v2">V2</option>
-        </select>
+    <main className="p-6 flex flex-col md:max-w-6xl mx-auto font-mono text-sm">
+      <header className="mb-4">
+        <div className="flex items-center">
+          <h1 className="text-2xl italic mr-2">UltraFreshSorting</h1>
+          <select
+            className="text-sm"
+            value={version}
+            onChange={(e) => setVersion(e.target.value)}
+          >
+            <option value="v1">V1</option>
+            <option value="v2">V2</option>
+          </select>
+        </div>
+        <p className="mt-2 text-xs">
+          Given a list of strings{' '}
+          <span className="uppercase font-bold">(input)</span>, sort them
+          alphabetically, but prioritize using another list of strings{' '}
+          <span className="uppercase font-bold">(PRIORITY)</span>
+          {version === 'v2' ? ' and avoid repeating prioritized values' : null}
+        </p>
       </header>
       <div className="flex flex-col md:flex-row">
         <SorterSection title="Priority" subtitle="Drag and drop to order ">
@@ -85,7 +98,7 @@ export function SortViewer() {
           )}
         </SorterSection>
         <div className="my-6 md:mx-6" />
-        <SorterSection title="Input" subtitle="Press enter to separate names">
+        <SorterSection title="Input" subtitle="Press enter to separate values">
           <div className="flex flex-col">
             <div
               className="outline-none border-2 border-black p-4 w-full"
