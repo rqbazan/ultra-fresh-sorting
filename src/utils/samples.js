@@ -3,8 +3,11 @@ Cigarros
 Comidas preparadas
 Pollos
 Gaseosas
+Carnes congeladas
 Carnes
 Frutas y Verduras
+Frutas y Verduras
+Frutas y Verduras XYZ
 Bebidas sin alcohol
 Lacteos
 Azucares

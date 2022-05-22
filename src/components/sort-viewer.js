@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import HighlightWithinTextarea from 'react-highlight-within-textarea'
 import escapeStringRegexp from 'escape-string-regexp'
 import { usePersistenceState } from '../lib/hooks'
-import { ultraFreshSorting } from '../core/sort'
+import { sort } from '../core/sort'
 import { defaultText, defaultPriorities } from '../utils/samples'
 import { SorterSection } from './sorter-section'
 import { PriorityList } from './priority-list'
@@ -36,7 +36,7 @@ export function SortViewer() {
   )
 
   const sortedLines = React.useMemo(
-    () => ultraFreshSorting(toLines(text), escapedPriorities),
+    () => sort(toLines(text), escapedPriorities),
     [text, escapedPriorities]
   )
 
