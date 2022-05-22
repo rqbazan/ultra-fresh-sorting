@@ -83,7 +83,7 @@ export function SortViewer() {
           {version === 'v2' ? ' and avoid repeating prioritized values' : null}
         </p>
       </header>
-      <div className="flex flex-col md:flex-row">
+      <div className="flex flex-col md:flex-row space-y-4 md:space-x-10">
         <SorterSection title="Priority" subtitle="Drag and drop to order ">
           {priorities?.length > 0 && (
             <div className="flex flex-col">
@@ -97,7 +97,6 @@ export function SortViewer() {
             </div>
           )}
         </SorterSection>
-        <div className="my-6 md:mx-6" />
         <SorterSection title="Input" subtitle="Press enter to separate values">
           <div className="flex flex-col">
             <div
@@ -121,7 +120,6 @@ export function SortViewer() {
             </Button>
           </div>
         </SorterSection>
-        <div className="my-6 md:mx-6" />
         <SorterSection title="Output" subtitle="Result with priority values">
           {sortedLines?.length > 0 ? (
             <ul className="flex flex-col space-y-1">
