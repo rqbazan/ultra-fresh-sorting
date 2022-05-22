@@ -11,6 +11,7 @@ import { PriorityList } from './priority-list'
 import { Button } from './button'
 
 const HIGHLIGHT_CLASS_NAME = 'bg-green-100'
+const LATEST_VERSION = 'v2'
 
 const toLines = (text) =>
   text
@@ -19,6 +20,8 @@ const toLines = (text) =>
     .filter(Boolean) ?? []
 
 export function SortViewer() {
+  const [version, setVersion] = React.useState(LATEST_VERSION)
+
   const [text, setText] = usePersistenceState({
     key: 'input-text',
     initialValue: '',
@@ -36,12 +39,18 @@ export function SortViewer() {
     [priorities]
   )
 
-  const sort = sortV2
+  const sort = React.useMemo(() => {
+    return version === 'v2' ? sortV2 : version === 'v1' ? sortV1 : null
+  }, [version])
 
-  const sortedLines = React.useMemo(
-    () => sort(toLines(text), escapedPriorities),
-    [sort, text, escapedPriorities]
-  )
+  const sortedLines = React.useMemo(() => {
+    if (sort) {
+      return sort(toLines(text), escapedPriorities)
+    } else {
+      console.error(`sort function is not defined`)
+      return []
+    }
+  }, [sort, text, escapedPriorities])
 
   const highlight = React.useMemo(
     () =>
@@ -54,8 +63,12 @@ export function SortViewer() {
 
   return (
     <main className="p-6 flex flex-col md:max-w-6xl mx-auto font-mono">
-      <header className="text-2xl mb-4">
-        <h1 className="italic">UltraFreshSorting</h1>
+      <header className="text-2xl mb-4 flex items-center">
+        <h1 className="italic mr-2">UltraFreshSorting</h1>
+        <select value={version} onChange={(e) => setVersion(e.target.value)}>
+          <option value="v1">V1</option>
+          <option value="v2">V2</option>
+        </select>
       </header>
       <div className="flex flex-col md:flex-row">
         <SorterSection title="Priority" subtitle="Drag and drop to order ">
