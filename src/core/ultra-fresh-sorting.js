@@ -21,13 +21,11 @@ function compare(itemA, itemB, priorities, visited) {
   const priorityIndexA = getPriorityIndex(valueA, priorities)
   const priorityIndexB = getPriorityIndex(valueB, priorities)
 
-  const firstOneHasPriority =
-    priorityIndexA !== -1 &&
-    (!visited.has(priorityIndexA) || visited.get(priorityIndexA) === itemA)
+  const checkIfHasPriority = (index, item) =>
+    index !== -1 && (!visited.has(index) || visited.get(index) === item)
 
-  const secondOneHasPriority =
-    priorityIndexB !== -1 &&
-    (!visited.has(priorityIndexB) || visited.get(priorityIndexB) === itemB)
+  const firstOneHasPriority = checkIfHasPriority(priorityIndexA, itemA)
+  const secondOneHasPriority = checkIfHasPriority(priorityIndexB, itemB)
 
   if (firstOneHasPriority) {
     visited.set(priorityIndexA, itemA)
@@ -59,10 +57,8 @@ function compare(itemA, itemB, priorities, visited) {
  * @param {Map<number, { value: string }>} [_visited]
  * @returns {{ value: string }[]}
  */
-export function ultraFreshSorting(values, _priorities, _visited) {
+export function ultraFreshSorting(values, _priorities, visited = new Map()) {
   const priorities = _priorities.map((x) => new RegExp(x, 'i'))
-
-  const visited = _visited ?? new Map()
 
   return values
     .map((value) => ({ value })) // make it unique by reference not by value
