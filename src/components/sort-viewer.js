@@ -83,7 +83,7 @@ export function SortViewer() {
           {version === 'v2' ? ' and avoid repeating prioritized values' : null}
         </p>
       </header>
-      <div className="flex flex-col md:flex-row space-y-4 md:space-x-10">
+      <div className="flex flex-col md:flex-row space-y-4 md:space-x-10 md:space-y-0">
         <SorterSection title="Priority" subtitle="Drag and drop to order ">
           {priorities?.length > 0 && (
             <div className="flex flex-col">
